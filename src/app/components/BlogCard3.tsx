@@ -2,21 +2,22 @@ import { urlForImage } from "@/sanity/lib/image";
 import Image from "next/image";
 import React from "react";
 
-export default function BlogPostCard({ post }: { post: Post }) {
+export default function BlogPostLayout3({ post }: { post: Post }) {
   return (
-    <>
-      {/* Blog Post Card*/}
-      <div className="m-5 bg-white hover:bg-gray-200 border border-purple-600 shadow-md rounded-lg overflow-hidden hover:shadow-lg hover:shadow-purple-600 transition-shadow duration-300 ease-in-out transform hover:scale-105 dark:text-white dark:bg-gray-800 dark:border-purple-600 dark:hover:bg-gray-950">
+    <div className="mx-auto my-0 w-full bg-white hover:bg-gray-200 border border-purple-600 shadow-md rounded-lg overflow-hidden hover:shadow-lg hover:shadow-purple-600 transition-shadow duration-300 ease-in-out transform hover:scale-105 dark:text-white dark:bg-gray-800 dark:border-purple-600 dark:hover:bg-gray-950">
+      {/* Full-Width Blog Card Layout */}
+      <div className="flex flex-col md:flex-row w-full">
         {/* Blog Image */}
         <Image
           src={urlForImage(post.mainImage).url()}
           alt="Blog Image"
-          width={1400}
-          height={800}
-          className="w-full h-48 object-cover"
+          width={1200}
+          height={400}
+          className="object-cover w-full h-64 md:h-auto md:w-1/2"
         />
+
         {/* Blog Content */}
-        <div className="p-4">
+        <div className="p-6 flex flex-col justify-between w-full md:w-1/2">
           {/* Author and Date */}
           <div className="flex items-center mb-4">
             <Image
@@ -24,10 +25,10 @@ export default function BlogPostCard({ post }: { post: Post }) {
               alt="Author"
               width={100}
               height={100}
-              className="w-10 h-10 rounded-full object-cover border border-gray-200"
+              className="w-12 h-12 rounded-full object-cover border border-gray-200"
             />
             <div className="ml-3">
-              <h3 className="text-xs font-semibold text-purple-600">
+              <h3 className="text-sm font-semibold text-purple-600">
                 {post.author.name}
               </h3>
               <span className="text-xs text-purple-600">
@@ -41,11 +42,11 @@ export default function BlogPostCard({ post }: { post: Post }) {
           </div>
 
           {/* Blog Title */}
-          <div className="flex justify-between mb-4">
-            <h2 className="text-xl font-semibold mb-2 text-gray-800 dark:text-white cursor-pointer">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-2xl font-semibold text-gray-800 dark:text-white cursor-pointer">
               {post.title}
             </h2>
-            {/* Read more dynamic link */}
+            {/* Read More Dynamic Link Icon */}
             <div className="text-blue-600 flex justify-end">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -53,7 +54,6 @@ export default function BlogPostCard({ post }: { post: Post }) {
                 height="32"
                 fill="#8b2a5e"
                 viewBox="0 0 256 256"
-                
               >
                 <path d="M222,104a6,6,0,0,1-12,0V54.49l-69.75,69.75a6,6,0,0,1-8.48-8.48L201.51,46H152a6,6,0,0,1,0-12h64a6,6,0,0,1,6,6Zm-38,26a6,6,0,0,0-6,6v72a2,2,0,0,1-2,2H48a2,2,0,0,1-2-2V80a2,2,0,0,1,2-2h72a6,6,0,0,0,0-12H48A14,14,0,0,0,34,80V208a14,14,0,0,0,14,14H176a14,14,0,0,0,14-14V136A6,6,0,0,0,184,130Z"></path>
               </svg>
@@ -61,9 +61,10 @@ export default function BlogPostCard({ post }: { post: Post }) {
           </div>
 
           {/* Blog Summary */}
-          <p className="text-xs text-gray-700 dark:text-gray-400 mb-4">
+          <p className="text-sm text-gray-700 dark:text-gray-400 mb-4">
             {post.summary}
           </p>
+
           {/* Blog Tags */}
           <div className="flex flex-wrap gap-2">
             <span className="bg-blue-200 text-blue-800 text-xs font-medium px-2.5 py-1 rounded">
@@ -78,6 +79,6 @@ export default function BlogPostCard({ post }: { post: Post }) {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

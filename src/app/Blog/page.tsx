@@ -26,7 +26,7 @@ export default async function AllBlogPosts() {
         </h1>
         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0">
           {posts.map((post: Post) => (
-            <Link key={post._id} href={`/HomeBlogs/${post.slug}`}>
+            <Link key={post._id} href={`/Blog/${post.slug}`}>
               <BlogCard post={post} />
             </Link>
           ))}

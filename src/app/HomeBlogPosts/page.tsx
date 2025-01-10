@@ -1,6 +1,6 @@
 import { client } from "@/sanity/lib/client";
 import React from "react";
-import BlogCard from "../components/BlogCards";
+import BlogCard from "../components/BlogCard1";
 import Link from "next/link";
 
 export default async function AllBlogPosts() {
@@ -26,7 +26,7 @@ export default async function AllBlogPosts() {
         </h1>
         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0">
           {posts.map((post: Post) => (
-            <Link key={post._id} href={`/HomeBlogs/${post.slug}`}>
+            <Link key={post._id} href={`/HomeBlogPosts/${post.slug}`}>
               <BlogCard post={post} />
             </Link>
           ))}
