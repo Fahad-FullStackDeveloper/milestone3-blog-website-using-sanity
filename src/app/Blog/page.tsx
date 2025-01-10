@@ -2,6 +2,7 @@ import { client } from "@/sanity/lib/client";
 import React from "react";
 import BlogCard from "../components/BlogCard1";
 import Link from "next/link";
+import ReviewSection from "../components/Reviews";
 
 export default async function AllBlogPosts() {
   const query = `*[_type == "post"] | order(_createdAt desc){
@@ -31,11 +32,7 @@ export default async function AllBlogPosts() {
             </Link>
           ))}
         </section>
-        {/* <Link href="/Blog" className="flex justify-center">
-          <button className="my-12 mx-5 w-60 text-center hover:lg:scale-105 bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full">
-            All Blog Posts
-          </button>
-        </Link> */}
+        <ReviewSection />
       </main>
     </>
   );

@@ -1,92 +1,102 @@
-"use client";
+'use client';
 import { useState } from "react";
 
-export default function ReviewPage() {
-  // State for managing form data and reviews
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [comments, setComments] = useState("");
-  const [reviews, setReviews] = useState([
-    { name: "John Doe", text: "Amazing post! Very informative!" },
-    { name: "Jane Smith", text: "I learned a lot from this article." },
-  ]);
+interface Review {
+  name: string;
+  comment: string;
+  rating: number;
+}
+
+export default function ReviewSection() {
+  // Local state for reviews and form input
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [userName, setUserName] = useState<string>("");
+  const [comment, setComment] = useState<string>("");
+  const [rating, setRating] = useState<number | "">("");
 
   // Handle form submission
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleReviewSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (name && email && comments) {
-      // Add the new review to the reviews state
-      setReviews([...reviews, { name, text: comments }]);
 
-      // Clear the form
-      setName("");
-      setEmail("");
-      setComments("");
-    }
+    // Create new review object
+    const newReview: Review = { name: userName, comment, rating: rating || 5 };
+
+    // Update reviews list
+    setReviews((prevReviews) => [...prevReviews, newReview]);
+
+    // Clear form fields
+    setUserName("");
+    setComment("");
+    setRating("");
   };
 
   return (
-    <section className="mt-16 px-4 sm:px-8 lg:px-16">
-      <h2 className="text-2xl font-bold text-dark dark:text-light text-center">Reviews</h2>
+    <section className="mt-12 p-6 bg-gray-100 dark:bg-gray-800 rounded-lg">
+      <h2 className="text-2xl font-semibold mb-4">Leave a Review</h2>
 
-      {/* Default Reviews */}
-      <div className="space-y-6 mt-6 max-w-4xl mx-auto">
-        {reviews.map((review, index) => (
-          <div key={index} className="bg-gray-100 p-4 rounded-lg shadow-sm">
-            <p className="text-lg font-medium text-dark dark:text-light">{review.text}</p>
-            <p className="text-sm text-dark/80 dark:text-light/80">- {review.name}</p>
-          </div>
-        ))}
-      </div>
+      {/* Review Submission Form */}
+      <form onSubmit={handleReviewSubmit} className="space-y-4">
+        {/* Name Input */}
+        <input
+          type="text"
+          placeholder="Your Name"
+          value={userName}
+          onChange={(e) => setUserName(e.target.value)}
+          className="w-full p-2 border rounded-md"
+          required
+        />
 
-      {/* Review Form */}
-      <form className="mt-8 space-y-4 max-w-4xl mx-auto" onSubmit={handleSubmit}>
-        <div className="flex flex-col">
-          <label htmlFor="name" className="text-sm font-medium text-dark dark:text-light">Name</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="mt-2 p-3 border border-gray-300 rounded-lg focus:ring-accent focus:outline-none"
-            placeholder="Enter your name"
-          />
-        </div>
+        {/* Comment Input */}
+        <textarea
+          placeholder="Your Comment"
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+          className="w-full p-2 border rounded-md"
+          rows={3}
+          required
+        />
 
-        <div className="flex flex-col">
-          <label htmlFor="email" className="text-sm font-medium text-dark dark:text-light">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="mt-2 p-3 border border-gray-300 rounded-lg focus:ring-accent focus:outline-none"
-            placeholder="Enter your email"
-          />
-        </div>
+        {/* Rating Input */}
+        <select
+          value={rating}
+          onChange={(e) => setRating(Number(e.target.value) || "")}
+          className="w-full p-2 border rounded-md"
+          required
+        >
+          <option value="">Select a Rating</option>
+          <option value="1">1 Star</option>
+          <option value="2">2 Stars</option>
+          <option value="3">3 Stars</option>
+          <option value="4">4 Stars</option>
+          <option value="5">5 Stars</option>
+        </select>
 
-        <div className="flex flex-col">
-          <label htmlFor="comments" className="text-sm font-medium text-dark dark:text-light">Comments</label>
-          <textarea
-            id="comments"
-            name="comments"
-            rows={4}
-            value={comments}
-            onChange={(e) => setComments(e.target.value)}
-            className="mt-2 p-3 border border-gray-300 rounded-lg focus:ring-accent focus:outline-none"
-            placeholder="Enter your comments"
-          />
-        </div>
-
+        {/* Submit Button */}
         <button
           type="submit"
-          className="w-full py-3 text-white rounded-lg font-bold focus:outline-none bg-yellow-400 hover:bg-yellow-500"
+          className="py-2 px-4 bg-purple-600 text-white rounded-md"
         >
           Submit Review
         </button>
       </form>
+
+      {/* Display Submitted Reviews */}
+      <div className="mt-8">
+        <h3 className="text-xl font-semibold mb-4">User Reviews</h3>
+        {reviews.length > 0 ? (
+          reviews.map((review, index) => (
+            <div key={index} className="border-b pb-4 mb-4">
+              <h4 className="font-bold">{review.name}</h4>
+              <p>{review.comment}</p>
+              <span className="text-yellow-500">
+                {"★".repeat(review.rating)}
+              </span>
+            </div>
+          ))
+        ) : (
+          <p>No reviews yet. Be the first to leave a review!</p>
+        )}
+      </div>
     </section>
   );
 }

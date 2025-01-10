@@ -1,5 +1,5 @@
 import React from 'react'
-import AllBlogPosts from './HomeBlogPosts/page'
+import AllBlogPosts from './AllBlogPosts/page'
 import RecentBlogPosts from './RecentBlogPosts/page'
 
 export default function Home() {

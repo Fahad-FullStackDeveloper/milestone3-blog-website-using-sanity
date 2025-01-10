@@ -1,3 +1,4 @@
+import ReviewPage from "@/app/components/Reviews";
 import { client } from "@/sanity/lib/client";
 import { urlForImage } from "@/sanity/lib/image";
 import Image from "next/image";
@@ -74,6 +75,7 @@ export default async function BlogPostPage({
         {/* Body Text */}
         <p className="text-lg mt-20">{post.bodyText}</p>
       </article>
+      <ReviewPage />
     </main>
   );
 }
