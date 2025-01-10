@@ -6,7 +6,7 @@ import BlogPostLayout3 from "../components/BlogCard3";
 import Link from "next/link";
 
 export default async function RecentBlogPosts() {
-  const query = `*[_type == "post"] | order(_createdAt desc){
+  const query = `*[_type == "post"] | order(_createdAt asc){
  mainImage,
  "author":author-> {name, "image":image.asset},
  publishedAt,

@@ -1,6 +1,6 @@
 import { client } from "@/sanity/lib/client";
 import React from "react";
-import BlogCard from "../components/BlogCards";
+import BlogCard from "../components/BlogCard1";
 import Link from "next/link";
 
 export default async function AllBlogPosts() {
